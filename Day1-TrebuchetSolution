@@ -1,0 +1,9 @@
+def get_numbers(line):
+    numbers_in_line = [int(s) for s in line.split() if s.isdigit()]
+    total_for_line = str(numbers_in_line[0]) + str(numbers_in_line[-1])
+
+with open(Day1-TrebuchetInput) as file_:
+    for line in file_:
+        total_value = get_numbers(line)
+
+print(total_value)
