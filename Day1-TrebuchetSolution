@@ -1,9 +1,22 @@
-def get_numbers(line):
-    numbers_in_line = [int(s) for s in line.split() if s.isdigit()]
-    total_for_line = str(numbers_in_line[0]) + str(numbers_in_line[-1])
+import sys
+orig_stdout = sys.stdout
+f = open('out.txt', 'w')
+sys.stdout = f
+ 
+total_value = 0
+i=0
 
-with open(Day1-TrebuchetInput) as file_:
+def get_numbers(line):
+    #replacing words with numbers for part 2
+    newline = line.replace("one","1W").replace("two","2W").replace("three","3W").replace("four","4W").replace("five","5W").replace("six","6W").replace("seven","7W").replace("eight","8W").replace("nine","9W")
+    print(newline)
+    numbers_in_line = [int(x) for x in newline if x.isdigit()]
+    if len(numbers_in_line)>0:
+        total_for_line = str(numbers_in_line[0]) + str(numbers_in_line[-1])
+    return total_for_line 
+
+with open("Day1TrebuchetInput.txt", "r") as file_:
     for line in file_:
-        total_value = get_numbers(line)
+        total_value = total_value + int(get_numbers(line))
 
 print(total_value)
