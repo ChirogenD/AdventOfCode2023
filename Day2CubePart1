@@ -1,0 +1,53 @@
+#Change output to file for easier debug
+import sys
+orig_stdout = sys.stdout
+f = open('out.txt', 'w')
+sys.stdout = f
+
+total = 0
+x = 0
+
+import re
+BagContents = { "red": 12,
+                "green": 13,
+                "blue": 14 }
+
+def CheckRound(roundvals):
+    myentry = roundvals.split()
+    try:
+        # is game possible?
+        if len(myentry)>1 and int(myentry[0]) <= BagContents[myentry[1]]:
+            return 1
+        
+    except:
+        return None
+    
+
+with open("Day2CubeInput.txt", "r") as file_:
+    for line in file_:
+        for i in line.split(";",0):
+            gameinfo = [int(x) for x in i if x.isdigit()]
+            
+            roundinfo = re.split('; |, |: |\*|\n',i)
+            game = roundinfo[0].split()
+            game = int(game[1])
+            for j in range(1,len(roundinfo)):
+                x = CheckRound(roundinfo[j])
+                #if you find an impossible then don't total game number
+                if x==None and len(roundinfo[j].split())>1:
+                    impossible = True
+                    break
+                    
+            if impossible != True:
+                total = total + game
+            print(impossible)
+            print(game)
+            print("subtotal = ", total)
+            impossible = False
+print("Total = ", total)
+
+#set output back to default
+sys.stdout = orig_stdout
+
+
+
